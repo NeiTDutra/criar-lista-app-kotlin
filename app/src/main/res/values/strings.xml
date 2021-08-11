@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Criar Lista</string>
     <string name="app_add_task">Criar Nota</string>
-    <string name="app_list">Lista</string>
+    <string name="app_list">Lista de Anotações</string>
     <string name="app_list_input_title">Título</string>
     <string name="app_list_input_descricao">Descrição</string>
     <string name="app_list_input_pre">Data Inicial</string>
@@ -10,4 +10,5 @@
     <string name="app_list_input_hpos">Hora Final</string>
     <string name="app_btn_criar_nota">Criar Nota</string>
     <string name="app_btn_cancelar_nota">Cancelar</string>
+    <string name="app_btn_criar_nota_description">Adicionar nova nota</string>
 </resources>
