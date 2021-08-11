@@ -81,6 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
+            android:drawableStart="@drawable/ic_baseline_date_24"
             android:hint="@string/app_list_input_pre"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
 
@@ -99,6 +100,7 @@
             android:id="@+id/etPos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_baseline_date_24"
             android:inputType="date"
             android:hint="@string/app_list_input_pos"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
