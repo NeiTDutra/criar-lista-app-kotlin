@@ -6,4 +6,8 @@
     <string name="app_list_input_descricao">Descrição</string>
     <string name="app_list_input_pre">Data Inicial</string>
     <string name="app_list_input_pos">Data Final</string>
+    <string name="app_list_input_hpre">Hora Inicial</string>
+    <string name="app_list_input_hpos">Hora Final</string>
+    <string name="app_btn_criar_nota">Criar Nota</string>
+    <string name="app_btn_cancelar_nota">Cancelar</string>
 </resources>
