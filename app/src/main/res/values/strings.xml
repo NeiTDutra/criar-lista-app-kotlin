@@ -13,4 +13,6 @@
     <string name="app_btn_criar_nota_description">Adicionar nova nota</string>
     <string name="label_inicio">Inicial</string>
     <string name="label_final">Final</string>
+    <string name="menu_delete">Excluir</string>
+    <string name="menu_edit">Editar</string>
 </resources>

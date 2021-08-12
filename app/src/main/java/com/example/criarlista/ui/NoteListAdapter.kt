@@ -2,9 +2,11 @@ package com.example.criarlista.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.criarlista.R
 import com.example.criarlista.databinding.ItemNotaBinding
 import com.example.criarlista.models.Note
 
@@ -20,6 +22,22 @@ class NoteListAdapter : ListAdapter<Note, NoteListAdapter.NoteViewHolder>(DiffCa
             binding.tvTimePre.text = item.timePre
             binding.tvDatePos.text = item.datePos
             binding.tvTimePos.text = item.timePos
+            binding.imgMore.setOnClickListener {
+                showPopup()
+            }
+        }
+
+        private fun showPopup() {
+            val more = binding.imgMore
+            val popupMenu = PopupMenu(more.context, more)
+            popupMenu.menuInflater.inflate(R.menu.menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menuEdit -> {}
+                    R.id.menuDelete -> {}
+                }
+                return@setOnMenuItemClickListener true
+            }
         }
     }
 

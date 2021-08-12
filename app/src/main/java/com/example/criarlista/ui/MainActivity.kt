@@ -1,9 +1,10 @@
 package com.example.criarlista.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.criarlista.databinding.ActivityMainBinding
+import com.example.criarlista.datasource.NoteDataSource
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,15 +16,27 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.rvNota.adapter = adapter
-
         insertListeners()
     }
 
     private fun insertListeners() {
 
         binding.fabNovaNota.setOnClickListener {
-            startActivity(Intent(this, AddNoteActivity::class.java))
+            startActivityForResult(Intent(this, AddNoteActivity::class.java), CREATE_NEW_NOTE)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == CREATE_NEW_NOTE) {
+
+            binding.rvNota.adapter = adapter
+            adapter.submitList(NoteDataSource.getList())
+        }
+    }
+
+    companion object {
+        private const val CREATE_NEW_NOTE = 1000
     }
 }

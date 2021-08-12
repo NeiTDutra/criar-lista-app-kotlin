@@ -1,7 +1,9 @@
 package com.example.criarlista.ui
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+
 import com.example.criarlista.databinding.ActivityAddNoteBinding
 import com.example.criarlista.datasource.NoteDataSource
 import com.example.criarlista.extensions.format
@@ -86,6 +88,8 @@ class AddNoteActivity: AppCompatActivity() {
                 timePos = binding.tilHourPos.text
             )
             NoteDataSource.insertNote(note)
+            setResult(Activity.RESULT_OK)
+            finish()
         }
     }
 }
