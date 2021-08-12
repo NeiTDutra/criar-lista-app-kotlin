@@ -11,4 +11,6 @@
     <string name="app_btn_criar_nota">Criar Nota</string>
     <string name="app_btn_cancelar_nota">Cancelar</string>
     <string name="app_btn_criar_nota_description">Adicionar nova nota</string>
+    <string name="label_inicio">Inicial</string>
+    <string name="label_final">Final</string>
 </resources>

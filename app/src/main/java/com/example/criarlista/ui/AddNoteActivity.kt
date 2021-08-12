@@ -1,10 +1,8 @@
 package com.example.criarlista.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.criarlista.databinding.ActivityAddTaskBinding
-import com.example.criarlista.databinding.ActivityMainBinding
+import com.example.criarlista.databinding.ActivityAddNoteBinding
 import com.example.criarlista.datasource.NoteDataSource
 import com.example.criarlista.extensions.format
 import com.example.criarlista.extensions.text
@@ -16,12 +14,11 @@ import java.util.*
 
 class AddNoteActivity: AppCompatActivity() {
 
-    private lateinit var binding: ActivityAddTaskBinding
-    private lateinit var bindingA: ActivityMainBinding
+    private lateinit var binding: ActivityAddNoteBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityAddTaskBinding.inflate(layoutInflater)
+        val binding = ActivityAddNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         insertListeners()
@@ -30,7 +27,7 @@ class AddNoteActivity: AppCompatActivity() {
     private fun insertListeners() {
 
         binding.tilDataPre.editText?.setOnClickListener {
-            Log.e("TAG", "insertListeners:")
+
             val datePicker = MaterialDatePicker.Builder.datePicker().build()
             datePicker.addOnPositiveButtonClickListener {
                 val timeZone = TimeZone.getDefault()
@@ -40,7 +37,19 @@ class AddNoteActivity: AppCompatActivity() {
             datePicker.show(supportFragmentManager, "DATE_PICKER_TAG")
         }
 
+        binding.tilDataPos.editText?.setOnClickListener {
+
+            val datePicker = MaterialDatePicker.Builder.datePicker().build()
+            datePicker.addOnPositiveButtonClickListener {
+                val timeZone = TimeZone.getDefault()
+                val offSet = timeZone.getOffset(Date().time) * -1
+                binding.tilDataPos.text = Date(it + offSet).format()
+            }
+            datePicker.show(supportFragmentManager, "DATE_PICKER_TAG")
+        }
+
         binding.tilHourPre.editText?.setOnClickListener {
+
             val timePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).build()
             timePicker.addOnPositiveButtonClickListener {
                 val hour = if (timePicker.hour in 0..9) "0${timePicker.hour}" else "${timePicker.hour}"
@@ -50,11 +59,24 @@ class AddNoteActivity: AppCompatActivity() {
             timePicker.show(supportFragmentManager, null)
         }
 
+        binding.tilHourPos.editText?.setOnClickListener {
+
+            val timePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).build()
+            timePicker.addOnPositiveButtonClickListener {
+                val hour = if (timePicker.hour in 0..9) "0${timePicker.hour}" else "${timePicker.hour}"
+                val min = if (timePicker.minute in 0..9) "0${timePicker.minute}" else "${timePicker.minute}"
+                binding.tilHourPos.text = "$hour:$min"
+            }
+            timePicker.show(supportFragmentManager, null)
+        }
+
         binding.mbCancelarNota.setOnClickListener {
+
             finish()
         }
 
         binding.mbCriarNota.setOnClickListener {
+
             val note = Note(
                 title = binding.tilTitle.text,
                 description = binding.tilDescricao.text,
@@ -64,10 +86,6 @@ class AddNoteActivity: AppCompatActivity() {
                 timePos = binding.tilHourPos.text
             )
             NoteDataSource.insertNote(note)
-        }
-
-        bindingA.fabNovaNota.setOnClickListener {
-
         }
     }
 }

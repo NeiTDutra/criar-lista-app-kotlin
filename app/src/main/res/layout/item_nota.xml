@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:padding="16dp"
+    style="@style/Widget.MaterialComponents.Badge"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Nota de teste um"
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDescricao"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        tools:text="Teste de desccrição da nota um"
+        android:layout_marginTop="8dp"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvInicio"
+        android:layout_width="20pt"
+        android:layout_height="wrap_content"
+        android:text="@string/label_inicio"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvDescricao"
+        app:layout_constraintEnd_toStartOf="@id/tvDatePre"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDatePre"
+        app:layout_constraintStart_toEndOf="@id/tvInicio"
+        app:layout_constraintTop_toTopOf="@id/tvInicio"
+        app:layout_constraintEnd_toStartOf="@id/tvTimePre"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="dd/mm/yyyy"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTimePre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        tools:text="hh:mm"
+        app:layout_constraintStart_toEndOf="@id/tvDatePre"
+        app:layout_constraintTop_toTopOf="@+id/tvDatePre"
+        app:layout_constraintEnd_toEndOf="@id/tvDescricao"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFinal"
+        android:layout_width="20pt"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/label_final"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvDatePos"
+        app:layout_constraintTop_toBottomOf="@id/tvInicio"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDatePos"
+        app:layout_constraintStart_toEndOf="@id/tvFinal"
+        app:layout_constraintTop_toTopOf="@id/tvFinal"
+        app:layout_constraintEnd_toStartOf="@id/tvTimePos"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="dd/mm/yyyy"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTimePos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        tools:text="hh:mm"
+        app:layout_constraintStart_toEndOf="@id/tvDatePos"
+        app:layout_constraintTop_toTopOf="@+id/tvDatePos"
+        app:layout_constraintEnd_toEndOf="@id/tvDescricao"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgMore"
+        app:layout_constraintTop_toTopOf="@id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_more_vert_24"
+        android:layout_width="36dp"
+        android:layout_height="36dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
