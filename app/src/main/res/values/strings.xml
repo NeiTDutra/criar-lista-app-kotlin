@@ -15,4 +15,5 @@
     <string name="label_final">Final</string>
     <string name="menu_delete">Excluir</string>
     <string name="menu_edit">Editar</string>
+    <string name="empty_note">Ops!! Nenhuma nota para exibir aqui!</string>
 </resources>

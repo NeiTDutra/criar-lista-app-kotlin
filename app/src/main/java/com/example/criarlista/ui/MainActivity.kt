@@ -2,6 +2,7 @@ package com.example.criarlista.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.criarlista.databinding.ActivityMainBinding
 import com.example.criarlista.datasource.NoteDataSource
@@ -60,7 +61,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateList() {
 
-        adapter.submitList(NoteDataSource.getList())
+        val list = NoteDataSource.getList()
+
+        binding.itemEmptyInclude.emptyState.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
+
+        adapter.submitList(list)
     }
 
     companion object {

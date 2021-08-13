@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/app_add_task"
+        app:titleTextColor="@color/black"
         app:navigationIcon="@drawable/ic_navigate_before_24"/>
 
     <androidx.constraintlayout.widget.Guideline
