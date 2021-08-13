@@ -12,9 +12,15 @@ class MainActivity : AppCompatActivity() {
     private val adapter by lazy { NoteListAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.rvNota.adapter = adapter
+        
+        updateList()
 
         insertListeners()
     }
@@ -22,18 +28,39 @@ class MainActivity : AppCompatActivity() {
     private fun insertListeners() {
 
         binding.fabNovaNota.setOnClickListener {
+
             startActivityForResult(Intent(this, AddNoteActivity::class.java), CREATE_NEW_NOTE)
+        }
+
+        adapter.listenerEdit = {
+
+            val intent = Intent(this, AddNoteActivity::class.java)
+
+            intent.putExtra(AddNoteActivity.NOTE_ID, it.id)
+            startActivityForResult(intent, CREATE_NEW_NOTE)
+        }
+
+        adapter.listenerDelete = {
+
+            NoteDataSource.deleteNote(it)
+            updateList()
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == CREATE_NEW_NOTE) {
+        if (requestCode == CREATE_NEW_NOTE && resultCode == RESULT_OK) {
 
             binding.rvNota.adapter = adapter
             adapter.submitList(NoteDataSource.getList())
         }
+    }
+
+    private fun updateList() {
+
+        adapter.submitList(NoteDataSource.getList())
     }
 
     companion object {

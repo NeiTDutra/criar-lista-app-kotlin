@@ -12,34 +12,8 @@ import com.example.criarlista.models.Note
 
 class NoteListAdapter : ListAdapter<Note, NoteListAdapter.NoteViewHolder>(DiffCallback()) {
 
-
-    class NoteViewHolder(private val binding : ItemNotaBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind (item: Note) {
-            binding.tvTitle.text = item.title
-            binding.tvDescricao.text = item.description
-            binding.tvDatePre.text = item.datePre
-            binding.tvTimePre.text = item.timePre
-            binding.tvDatePos.text = item.datePos
-            binding.tvTimePos.text = item.timePos
-            binding.imgMore.setOnClickListener {
-                showPopup()
-            }
-        }
-
-        private fun showPopup() {
-            val more = binding.imgMore
-            val popupMenu = PopupMenu(more.context, more)
-            popupMenu.menuInflater.inflate(R.menu.menu, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.menuEdit -> {}
-                    R.id.menuDelete -> {}
-                }
-                return@setOnMenuItemClickListener true
-            }
-        }
-    }
+    var listenerEdit:(Note) -> Unit = {}
+    var listenerDelete:(Note) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
 
@@ -50,6 +24,36 @@ class NoteListAdapter : ListAdapter<Note, NoteListAdapter.NoteViewHolder>(DiffCa
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    inner class NoteViewHolder(private val binding: ItemNotaBinding): RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: Note) {
+            binding.tvTitle.text = item.title
+            binding.tvDescricao.text = item.description
+            binding.tvDatePre.text = item.datePre
+            binding.tvTimePre.text = item.timePre
+            binding.tvDatePos.text = item.datePos
+            binding.tvTimePos.text = item.timePos
+            binding.imgMore.setOnClickListener {
+                showPopup(item)
+            }
+
+        }
+
+        private fun showPopup(item: Note) {
+            val imgMore = binding.imgMore
+            val popupMenu = PopupMenu(imgMore.context, imgMore)
+            popupMenu.menuInflater.inflate(R.menu.menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menuEdit -> listenerEdit(item)
+                    R.id.menuDelete -> listenerDelete(item)
+                }
+                return@setOnMenuItemClickListener true
+            }
+            popupMenu.show()
+        }
     }
 }
 

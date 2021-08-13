@@ -19,9 +19,23 @@ class AddNoteActivity: AppCompatActivity() {
     private lateinit var binding: ActivityAddNoteBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         val binding = ActivityAddNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (intent.hasExtra(NOTE_ID)) {
+            val noteId = intent.getIntExtra(NOTE_ID, 0)
+            NoteDataSource.findById(noteId)?.let {
+                binding.tilTitle.text = it.title
+                binding.tilDescricao.text = it.description
+                binding.tilDataPre.text = it.datePre
+                binding.tilHourPre.text = it.timePre
+                binding.tilDataPos.text = it.datePos
+                binding.tilHourPos.text = it.timePos
+            }
+        }
 
         insertListeners()
     }
@@ -42,33 +56,45 @@ class AddNoteActivity: AppCompatActivity() {
         binding.tilDataPos.editText?.setOnClickListener {
 
             val datePicker = MaterialDatePicker.Builder.datePicker().build()
+
             datePicker.addOnPositiveButtonClickListener {
+
                 val timeZone = TimeZone.getDefault()
                 val offSet = timeZone.getOffset(Date().time) * -1
+
                 binding.tilDataPos.text = Date(it + offSet).format()
             }
+
             datePicker.show(supportFragmentManager, "DATE_PICKER_TAG")
         }
 
         binding.tilHourPre.editText?.setOnClickListener {
 
             val timePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).build()
+
             timePicker.addOnPositiveButtonClickListener {
+
                 val hour = if (timePicker.hour in 0..9) "0${timePicker.hour}" else "${timePicker.hour}"
                 val min = if (timePicker.minute in 0..9) "0${timePicker.minute}" else "${timePicker.minute}"
+
                 binding.tilHourPre.text = "$hour:$min"
             }
+
             timePicker.show(supportFragmentManager, null)
         }
 
         binding.tilHourPos.editText?.setOnClickListener {
 
             val timePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).build()
+
             timePicker.addOnPositiveButtonClickListener {
+
                 val hour = if (timePicker.hour in 0..9) "0${timePicker.hour}" else "${timePicker.hour}"
                 val min = if (timePicker.minute in 0..9) "0${timePicker.minute}" else "${timePicker.minute}"
+
                 binding.tilHourPos.text = "$hour:$min"
             }
+
             timePicker.show(supportFragmentManager, null)
         }
 
@@ -85,11 +111,17 @@ class AddNoteActivity: AppCompatActivity() {
                 datePre = binding.tilDataPre.text,
                 timePre = binding.tilHourPre.text,
                 datePos = binding.tilDataPos.text,
-                timePos = binding.tilHourPos.text
+                timePos = binding.tilHourPos.text,
+                id = intent.getIntExtra(NOTE_ID, 0)
             )
+
             NoteDataSource.insertNote(note)
             setResult(Activity.RESULT_OK)
             finish()
         }
+    }
+
+    companion object {
+        const val NOTE_ID = "noteId"
     }
 }
